@@ -39,7 +39,7 @@ class _HeaderState extends State<Header> {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-        Logo() ,
+          Logo(),
           Column(
             key: columnKey,
             mainAxisSize: MainAxisSize.max,
@@ -101,13 +101,16 @@ class _HeaderState extends State<Header> {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              tapName,
-              style: TextStyle(
-                  fontSize: _responsive.responsiveValue(
-                      forUnInitialDevices: 1.5,
-                      forLandscapeTabletScreen: 0.99,
-                      forPortraitTabletScreen:0.89)),
+            FittedBox(
+              fit: BoxFit.fill,
+              child: Text(
+                tapName,
+                // style: TextStyle(
+                //     fontSize: _responsive.responsiveValue(
+                //         forUnInitialDevices: 1.5,
+                //         forLandscapeTabletScreen: 0.99,
+                //         forPortraitTabletScreen: 0.89)),
+              ),
             ),
           ],
         ),
