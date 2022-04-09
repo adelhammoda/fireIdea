@@ -1,5 +1,5 @@
-import 'package:fire_idea_project/provider/theme_provider.dart';
-import 'package:fire_idea_project/widgets/elevated_button.dart';
+import '../provider/theme_provider.dart';
+import '../widgets/elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_s/responsive_s.dart';
@@ -58,8 +58,7 @@ class _AboutUsState extends State<AboutUs> {
                           ),
                           child: SingleChildScrollView(
                             child: Text(
-                              '''It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters. 
-as opposed to using ‘Content here, content here’, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for ‘lorem ipsum’ will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).as opposed to using ‘Content here, content here’, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for ‘lorem ipsum’ will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).''',
+                              '''We Create Mobile Apps and More Development of mobile applications and web projects for business and start-up . You are welcome to share your ideas with our application development company and we will do our best to realize it!''',
                               style: TextStyle(
                                   fontSize: _responsive.responsiveValue(
                                       forUnInitialDevices: 2)),
@@ -150,24 +149,37 @@ We’re here to answer your questions. Let us show you how you can leverage real
                     _responsive.responsiveHeight(forUnInitialDevices: 10)),
             child: Container(
               height: _responsive.responsiveHeight(forUnInitialDevices: 40),
-              width:_responsive.responsiveWidth(forUnInitialDevices: 100),
+              width: _responsive.responsiveWidth(forUnInitialDevices: 100),
               child: Column(
-                mainAxisSize: MainAxisSize.max  ,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text('''Everything you need,\n our team is ready for your service. ''',style: TextStyle(
-                    fontSize: _responsive.responsiveValue(forUnInitialDevices: 3),
-                    color: Provider.of<ThemeProvider>(context).theme.optionColor
-                  ),textAlign: TextAlign.center,),
-                  Text('Experience effective, widespread and continuous support',style: TextStyle(
-                    fontSize: _responsive.responsiveValue(forUnInitialDevices: 2),
-                    color: Colors.white,
-                  ),),
-                   CustomElevatedButton(text: 'Join Us',buttonSize:  Size(
-                        _responsive.responsiveHeight(
-                            forUnInitialDevices: 13),
-                        _responsive.responsiveHeight(
-                            forUnInitialDevices: 5),),dark: false,),
+                  Text(
+                    '''Everything you need,\n our team is ready for your service. ''',
+                    style: TextStyle(
+                        fontSize:
+                            _responsive.responsiveValue(forUnInitialDevices: 3),
+                        color: Provider.of<ThemeProvider>(context)
+                            .theme
+                            .optionColor),
+                    textAlign: TextAlign.center,
+                  ),
+                  Text(
+                    'Experience effective, widespread and continuous support',
+                    style: TextStyle(
+                      fontSize:
+                          _responsive.responsiveValue(forUnInitialDevices: 2),
+                      color: Colors.white,
+                    ),
+                  ),
+                  CustomElevatedButton(
+                    text: 'Join Us',
+                    buttonSize: Size(
+                      _responsive.responsiveHeight(forUnInitialDevices: 13),
+                      _responsive.responsiveHeight(forUnInitialDevices: 5),
+                    ),
+                    dark: false,
+                  ),
                 ],
               ),
               decoration: const BoxDecoration(

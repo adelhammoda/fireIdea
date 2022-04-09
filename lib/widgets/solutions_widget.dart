@@ -1,5 +1,5 @@
-import 'package:fire_idea_project/provider/home_page_provider.dart';
-import 'package:fire_idea_project/provider/theme_provider.dart';
+import '../provider/home_page_provider.dart';
+import '../provider/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_s/responsive_s.dart';

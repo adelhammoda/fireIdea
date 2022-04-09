@@ -1,8 +1,8 @@
-import 'package:fire_idea_project/service/home_page_service.dart';
-import 'package:fire_idea_project/view/aboutUs.dart';
-import 'package:fire_idea_project/view/contact_us.dart';
-import 'package:fire_idea_project/view/projects.dart';
-import 'package:fire_idea_project/view/solutions.dart';
+import '../service/home_page_service.dart';
+import '../view/aboutUs.dart';
+import '../view/contact_us.dart';
+import '../view/projects.dart';
+import '../view/solutions.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -66,7 +66,6 @@ class HomePageProvider extends ChangeNotifier {
 
   void changeSolutionPage(int number) {
     selectedCountINSolution = number;
-
     notifyListeners();
   }
 

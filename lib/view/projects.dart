@@ -1,15 +1,15 @@
 import 'dart:math';
 
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:fire_idea_project/models/project_model.dart';
-import 'package:fire_idea_project/provider/home_page_provider.dart';
-import 'package:fire_idea_project/provider/theme_provider.dart';
-import 'package:fire_idea_project/service/home_page_service.dart';
-import 'package:fire_idea_project/utils/convert_int_to_string.dart';
-import 'package:fire_idea_project/widgets/arrow_button.dart';
-import 'package:fire_idea_project/widgets/elevated_button.dart';
-import 'package:fire_idea_project/widgets/left_side_image.dart';
-import 'package:fire_idea_project/widgets/project_widget.dart';
+import '../models/project_model.dart';
+import '../provider/home_page_provider.dart';
+import '../provider/theme_provider.dart';
+import '../service/home_page_service.dart';
+import '../utils/convert_int_to_string.dart';
+import '../widgets/arrow_button.dart';
+import '../widgets/elevated_button.dart';
+import '../widgets/left_side_image.dart';
+import '../widgets/project_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_s/responsive_s.dart';
@@ -29,6 +29,7 @@ class _ProjectsState extends State<Projects> {
   List<Project> _project = [];
   late Responsive _responsive;
   bool _loading = false;
+  Project? currentProject;
   final HomePageService _service = HomePageService();
 
   void _loadProjectsData() async {
@@ -43,6 +44,7 @@ class _ProjectsState extends State<Projects> {
             _project.add(Project.formJSON(projectData, index.toString()));
             index++;
           }
+          currentProject = _project.first;
           Provider.of<HomePageProvider>(context, listen: false)
               .setLastProjectId(_project[_project.length - 1].id);
         }
@@ -133,36 +135,43 @@ class _ProjectsState extends State<Projects> {
                                       : _project.length + 1,
                                   itemScrollController: _listViewController,
                                   physics: const NeverScrollableScrollPhysics(),
-                                  itemBuilder: (context, index) => _project
-                                                      .length %
-                                                  3 !=
-                                              0 &&
-                                          index != _project.length
-                                      ? Padding(
-                                          padding: EdgeInsets.only(
-                                              left: _responsive.responsiveWidth(
-                                                  forUnInitialDevices: 1.25),
-                                              right: index ==
-                                                      _project.length - 1
-                                                  ? _responsive.responsiveWidth(
-                                                      forUnInitialDevices: 1.25)
-                                                  : 0),
-                                          child: ProjectWidget(
-                                            index: index,
-                                            project: _project[index],
-                                            callBack: ({int lastIndex = -1}) {
-                                              if (lastIndex < 0) {
-                                                _scrollToProject(index);
-                                              } else {
-                                                _scrollToProject(lastIndex);
-                                              }
-                                            },
-                                          ),
-                                        )
-                                      : SizedBox(
-                                          width: _responsive.responsiveWidth(
-                                              forUnInitialDevices: 16.25),
-                                        )),
+                                  itemBuilder: (context, index) {
+                                    return _project.length % 3 != 0 &&
+                                            index != _project.length
+                                        ? Padding(
+                                            padding: EdgeInsets.only(
+                                                left:
+                                                    _responsive.responsiveWidth(
+                                                        forUnInitialDevices:
+                                                            1.25),
+                                                right: index ==
+                                                        _project.length - 1
+                                                    ? _responsive
+                                                        .responsiveWidth(
+                                                            forUnInitialDevices:
+                                                                1.25)
+                                                    : 0),
+                                            child: ProjectWidget(
+                                              index: index,
+                                              project: _project[index],
+                                              callBack: ({int lastIndex = -1}) {
+                                                setState(() {
+                                                  currentProject = _project[index];
+                                                });
+                                                if (lastIndex < 0) {
+
+                                                  _scrollToProject(index);
+                                                } else {
+                                                  _scrollToProject(lastIndex);
+                                                }
+                                              },
+                                            ),
+                                          )
+                                        : SizedBox(
+                                            width: _responsive.responsiveWidth(
+                                                forUnInitialDevices: 16.25),
+                                          );
+                                  }),
                             ),
                             Align(
                               alignment: Alignment.centerLeft,
@@ -192,9 +201,11 @@ class _ProjectsState extends State<Projects> {
             SizedBox(
               height: _responsive.responsiveHeight(forUnInitialDevices: 10),
             ),
-            SubImage(
-              project: _project[0],
-            )
+            Visibility(
+                visible: _project.isNotEmpty,
+                child: SubImage(
+                  project: currentProject,
+                ))
           ],
         ),
       ),
@@ -203,7 +214,7 @@ class _ProjectsState extends State<Projects> {
 }
 
 class SubImage extends StatefulWidget {
-  final Project project;
+  final Project? project;
 
   const SubImage({Key? key, required this.project}) : super(key: key);
 
@@ -217,12 +228,15 @@ class _SubImageState extends State<SubImage> {
   int _imageIndex = 0;
 
   double _calculateIndicatorsWidth() {
-    double totalWidth = _responsive.responsiveWidth(forUnInitialDevices: 30);
-    if (widget.project.subImage.length < 10) {
-      return _responsive.responsiveWidth(forUnInitialDevices: 5);
-    } else {
-      return totalWidth / widget.project.subImage.length;
-    }
+    if(widget.project != null){
+      double totalWidth = _responsive.responsiveWidth(forUnInitialDevices: 30);
+      if (widget.project!.subImage.length < 10) {
+        return _responsive.responsiveWidth(forUnInitialDevices: 5);
+      } else {
+        return totalWidth / widget.project!.subImage.length;
+      }
+    }else return 0;
+
   }
 
   @override
@@ -231,7 +245,7 @@ class _SubImageState extends State<SubImage> {
     return SizedBox(
       width: _responsive.responsiveWidth(forUnInitialDevices: 78),
       height: _responsive.responsiveWidth(forUnInitialDevices: 35),
-      child: Stack(
+      child: widget.project!=null?Stack(
         fit: StackFit.loose,
         children: [
           //carousel
@@ -255,9 +269,9 @@ class _SubImageState extends State<SubImage> {
                   scrollPhysics: const NeverScrollableScrollPhysics(),
                 ),
                 items: List.generate(
-                    widget.project.subImage.length,
+                    widget.project!.subImage.length,
                     (index) => Image.network(
-                          widget.project.subImage[index] as String,
+                          widget.project!.subImage[index] as String,
                           width: _responsive.responsiveWidth(
                               forUnInitialDevices: 75),
                           fit: BoxFit.fill,
@@ -272,7 +286,7 @@ class _SubImageState extends State<SubImage> {
             alignment: Alignment.topRight,
             child: Container(
               padding: EdgeInsets.symmetric(
-                vertical:  _responsive.responsiveWidth(forUnInitialDevices: 2),
+                  vertical: _responsive.responsiveWidth(forUnInitialDevices: 2),
                   horizontal:
                       _responsive.responsiveWidth(forUnInitialDevices: 1)),
               width: _responsive.responsiveWidth(forUnInitialDevices: 8),
@@ -303,7 +317,7 @@ class _SubImageState extends State<SubImage> {
                     padding: const EdgeInsets.only(top: 3),
                     child: Text(
                         toStringWithFixedNumber(
-                            widget.project.subImage.length, 2),
+                            widget.project!.subImage.length, 2),
                         style: TextStyle(
                             fontSize: _responsive.responsiveValue(
                                 forUnInitialDevices: 2),
@@ -331,7 +345,7 @@ class _SubImageState extends State<SubImage> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(
-                      widget.project.subImage.length,
+                      widget.project!.subImage.length,
                       (index) => Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: _calculateIndicatorsWidth() * 0.1),
@@ -358,7 +372,7 @@ class _SubImageState extends State<SubImage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    widget.project.name,
+                    widget.project!.name,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Helvetica Neue',
@@ -373,7 +387,7 @@ class _SubImageState extends State<SubImage> {
                     height: 5,
                   ),
                   Text(
-                    widget.project.type,
+                    widget.project!.type,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Helvetica Neue',
@@ -388,7 +402,7 @@ class _SubImageState extends State<SubImage> {
                     height: 5,
                   ),
                   Text(
-                    widget.project.description,
+                    widget.project!.description,
                     style: TextStyle(
                       fontWeight: FontWeight.w200,
                       fontFamily: 'Helvetica Neue',
@@ -417,7 +431,7 @@ class _SubImageState extends State<SubImage> {
             ),
           )
         ],
-      ),
+      ):Container(),
     );
   }
 }

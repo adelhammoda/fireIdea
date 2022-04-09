@@ -1,9 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:fire_idea_project/classes/theme.dart';
-import 'package:fire_idea_project/provider/theme_provider.dart';
-import 'package:fire_idea_project/provider/welcome_page_provider.dart';
-import 'package:fire_idea_project/view/home_page.dart';
-import 'package:fire_idea_project/widgets/user_account.dart';
+import '../classes/theme.dart';
+import '../provider/theme_provider.dart';
+import '../provider/welcome_page_provider.dart';
+import '../view/home_page.dart';
+import '../widgets/user_account.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_s/responsive_s.dart';

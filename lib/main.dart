@@ -1,14 +1,17 @@
-import 'package:fire_idea_project/provider/home_page_provider.dart';
-import 'package:fire_idea_project/provider/theme_provider.dart';
-import 'package:fire_idea_project/provider/welcome_page_provider.dart';
-import 'package:fire_idea_project/view/home_page.dart';
-import 'package:fire_idea_project/view/welcom_page.dart';
+import 'package:firebase_database/firebase_database.dart';
+
+import './provider/home_page_provider.dart';
+import './provider/theme_provider.dart';
+import './provider/welcome_page_provider.dart';
+import './view/home_page.dart';
+import './view/welcom_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
       options: const FirebaseOptions(
           apiKey: "AIzaSyDK851PCEgINMR-Ck1-eEzFIlc52rIPhVo",
@@ -20,6 +23,7 @@ void main() async {
           messagingSenderId: "952427878196",
           appId: "1:952427878196:web:f4e840d330e26cdfd8b761",
           measurementId: "G-DJ5YWL23WT"));
+  await FirebaseDatabase.instance.goOnline();
   runApp(ChangeNotifierProvider(
     child: const MyApp(),
     create: (context) => ThemeProvider(),

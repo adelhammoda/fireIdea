@@ -1,9 +1,8 @@
-import 'package:fire_idea_project/provider/theme_provider.dart';
-import 'package:fire_idea_project/service/home_page_service.dart';
-import 'package:fire_idea_project/widgets/elevated_button.dart';
-import 'package:fire_idea_project/widgets/text_field.dart';
+
+import '../service/home_page_service.dart';
+import '../widgets/elevated_button.dart';
+import '../widgets/text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:responsive_s/responsive_s.dart';
 
 class ContactUs extends StatefulWidget {

@@ -1,4 +1,4 @@
-import 'package:fire_idea_project/widgets/elevated_button.dart';
+import '../widgets/elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_s/responsive_s.dart';
 

@@ -1,4 +1,4 @@
-import 'package:fire_idea_project/classes/theme.dart';
+import '../classes/theme.dart';
 import 'package:flutter/material.dart';
 
 class ThemeProvider with ChangeNotifier {

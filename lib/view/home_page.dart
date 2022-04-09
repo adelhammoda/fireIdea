@@ -1,7 +1,7 @@
-import 'package:fire_idea_project/provider/home_page_provider.dart';
-import 'package:fire_idea_project/service/home_page_service.dart';
-import 'package:fire_idea_project/widgets/footer.dart';
-import 'package:fire_idea_project/widgets/header.dart';
+import '../provider/home_page_provider.dart';
+// import '../service/home_page_service.dart';
+import '../widgets/footer.dart';
+import '../widgets/header.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final HomePageService _service=HomePageService();
+  // final HomePageService _service=HomePageService();
 
 
   @override

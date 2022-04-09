@@ -1,5 +1,5 @@
-import 'package:fire_idea_project/provider/home_page_provider.dart';
-import 'package:fire_idea_project/provider/theme_provider.dart';
+import '../provider/home_page_provider.dart';
+import '../provider/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_s/responsive_s.dart';
@@ -46,13 +46,19 @@ class _FooterState extends State<Footer> {
                 fit: BoxFit.fill,
               ),
               SizedBox(
+                height: _responsive.responsiveHeight(forUnInitialDevices: 20),
                 width: _responsive.responsiveWidth(
                     forUnInitialDevices: 20),
-                child: Text(
-                  'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ',
-                  style: TextStyle(
-                      fontSize:
-                          _responsive.responsiveValue(forUnInitialDevices: 2)),
+                child: FittedBox(
+                  alignment: Alignment.centerLeft,
+                  fit: BoxFit.fitHeight,
+                  child: SizedBox(
+                    width: _responsive.responsiveWidth(
+                        forUnInitialDevices: 20),
+                    child:const Text(
+                      'We are providing best-of-practice solutions on time and on budget .Fireideas was Founded in 2019, our team of software programmers specializes in software and business applications to satisfy business needs. We provide a wide range of development services and software application products for multiple technology platforms that meet the ever-changing needs and demands of the marketplace.',
+                    ),
+                  ),
                 ),
               ),
               Row(

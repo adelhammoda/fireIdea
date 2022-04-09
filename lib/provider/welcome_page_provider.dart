@@ -1,4 +1,4 @@
-import 'package:fire_idea_project/service/welcome_page_service.dart';
+import '../service/welcome_page_service.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
