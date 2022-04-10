@@ -70,6 +70,10 @@ class _SolutionsState extends State<Solutions> {
                     SizedBox(
                       width:
                           _responsive.responsiveWidth(forUnInitialDevices: 40),
+                      height: _responsive.responsiveHeight(forUnInitialDevices: 30,
+                      forLandscapeTabletScreen:20,
+                      forPortraitMobileScreen: 15,
+                      forPortraitTabletScreen: 15),
                       child: _loading
                           ? Center(
                               child: CircularProgressIndicator(

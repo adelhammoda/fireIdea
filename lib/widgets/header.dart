@@ -6,8 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_s/responsive_s.dart';
 
+import 'drawer_button.dart';
+
 class Header extends StatefulWidget {
-  const Header({Key? key}) : super(key: key);
+  final GlobalKey<ScaffoldState> scaffoldKey;
+
+  const Header({Key? key, required this.scaffoldKey}) : super(key: key);
 
   @override
   _HeaderState createState() => _HeaderState();
@@ -37,46 +41,73 @@ class _HeaderState extends State<Header> {
       color: Colors.white,
       child: Row(
         mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Logo(),
-          Column(
-            key: columnKey,
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Spacer(),
-              SizedBox(
-                height: _responsive.responsiveHeight(forUnInitialDevices: 2),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    _buildTaps(tapName: 'Projects'),
-                    _buildTaps(tapName: 'Solutions'),
-                    _buildTaps(tapName: 'About us'),
-                    _buildTaps(tapName: 'Contact us '),
-                  ],
-                ),
+          _responsive.responsiveWidget(
+              forUnInitialDevices: Logo(),
+              forLandscapeTabletScreen: DrawerButton(scaffoldKey: widget.scaffoldKey),
+              forLandscapeMobileScreen: DrawerButton(
+                scaffoldKey: widget.scaffoldKey,
               ),
-              const Spacer(),
-              AnimatedPadding(
-                padding: EdgeInsets.only(
-                    left: _responsive.responsiveWidth(
-                            forUnInitialDevices: 0.5) +
-                        _responsive.responsiveWidth(forUnInitialDevices: 5) *
-                            Provider.of<HomePageProvider>(context)
-                                .paddingValue),
-                duration: const Duration(milliseconds: 300),
-                child: Container(
-                  width: _responsive.responsiveWidth(forUnInitialDevices: 4),
-                  height:
-                      _responsive.responsiveHeight(forUnInitialDevices: 0.3),
-                  color: Provider.of<ThemeProvider>(context).theme.optionColor,
-                ),
-              )
-            ],
+              forPortraitTabletScreen:
+                  DrawerButton(scaffoldKey: widget.scaffoldKey),
+              forPortraitMobileScreen:
+                  DrawerButton(scaffoldKey: widget.scaffoldKey)),
+          _responsive.responsiveWidget(
+            forUnInitialDevices: Spacer(),
+            forLandscapeTabletScreen: Container(),
+            forLandscapeMobileScreen: Container(),
+            forPortraitTabletScreen: Container(),
+            forPortraitMobileScreen: Container(),
           ),
+          _responsive.responsiveWidget(
+              forUnInitialDevices: Column(
+                key: columnKey,
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Spacer(),
+                  SizedBox(
+                    height:
+                        _responsive.responsiveHeight(forUnInitialDevices: 2),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        _buildTaps(tapName: 'Projects'),
+                        _buildTaps(tapName: 'Solutions'),
+                        _buildTaps(tapName: 'About us'),
+                        _buildTaps(tapName: 'Contact us '),
+                      ],
+                    ),
+                  ),
+                  const Spacer(),
+                  AnimatedPadding(
+                    padding: EdgeInsets.only(
+                        left: (16 *
+                                Provider.of<HomePageProvider>(context)
+                                    .paddingValue) +
+                            _responsive.responsiveWidth(
+                                    forUnInitialDevices: 3) *
+                                Provider.of<HomePageProvider>(context)
+                                    .paddingValue),
+                    duration: const Duration(milliseconds: 300),
+                    child: Container(
+                      width:
+                          _responsive.responsiveWidth(forUnInitialDevices: 3) +
+                              16,
+                      height: _responsive.responsiveHeight(
+                          forUnInitialDevices: 0.3),
+                      color:
+                          Provider.of<ThemeProvider>(context).theme.optionColor,
+                    ),
+                  )
+                ],
+              ),
+              forPortraitMobileScreen: Logo(),
+              forLandscapeTabletScreen: Logo(),
+              forLandscapeMobileScreen: Logo(),
+              forPortraitTabletScreen: Logo()),
+          const Spacer(),
           Container(
             alignment: Alignment.center,
             width: _responsive.responsiveWidth(forUnInitialDevices: 23),
@@ -95,24 +126,24 @@ class _HeaderState extends State<Header> {
         Provider.of<HomePageProvider>(context, listen: false)
             .navigateToAnotherPage(tapName);
       },
-      child: SizedBox(
-        width: _responsive.responsiveWidth(forUnInitialDevices: 5),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            FittedBox(
-              fit: BoxFit.fill,
-              child: Text(
-                tapName,
-                // style: TextStyle(
-                //     fontSize: _responsive.responsiveValue(
-                //         forUnInitialDevices: 1.5,
-                //         forLandscapeTabletScreen: 0.99,
-                //         forPortraitTabletScreen: 0.89)),
-              ),
+      child: Padding(
+        padding: const EdgeInsets.only(right: 8.0, left: 8.0),
+        child: SizedBox(
+          width: _responsive.responsiveWidth(
+            forUnInitialDevices: 3,
+          ),
+          child: FittedBox(
+            alignment: Alignment.center,
+            fit: BoxFit.contain,
+            child: Text(
+              tapName,
+              // style: TextStyle(
+              //     fontSize: _responsive.responsiveValue(
+              //         forUnInitialDevices: 1.5,
+              //         forLandscapeTabletScreen: 0.99,
+              //         forPortraitTabletScreen: 0.89)),
             ),
-          ],
+          ),
         ),
       ),
     );

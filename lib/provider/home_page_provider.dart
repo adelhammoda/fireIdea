@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 
 class HomePageProvider extends ChangeNotifier {
   Widget body=const Projects();
+  final ScrollController scrollController= ScrollController();
   String pageName = 'Projects';
   String selectedProjectId='';
   int paddingValue = 0;
@@ -136,7 +137,6 @@ class HomePageProvider extends ChangeNotifier {
     selectedProjectId=projectID;
     print(projectID);
     notifyListeners();
-
   }
   void setLastProjectId(String lastID){
     lastProjectId=lastID;

@@ -41,6 +41,8 @@ dependencies:
   firebase_auth:
   firebase_database:
   firebase_storage:
+  #lottie
+  lottie:
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -75,6 +77,7 @@ flutter:
   assets:
     - assets/image/
     - assets/Icons/
+    - assets/lottie/
 
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
